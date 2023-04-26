@@ -23,11 +23,8 @@ const TweetCard = ({ toggleFollow, card }) => {
         <Content>
           <LogoType />
           <Poster src={poster} alt="sings"></Poster>
-          {/* <logo /> */}
           <Divide />
-          {/* <AvatarData> */}
           <PhotoUser alt={card.user} src={card.avatar} />
-          {/* </AvatarData> */}
           <WrapperForTweet>
             <Tweets variant="body1" color="textSecondary" gutterBottom>
               Tweets: {card.tweets}

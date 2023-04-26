@@ -3,10 +3,10 @@ Router, React Lazy, React Hook, Axios, Redux Toolkit, Material-UI and Styled
 components. This is a tweets app that allows you to user to follow other users
 and follow their updates.
 
-The subscription to the user occurs only after successful tweet update, i.e. the
-number of subscribers increase only after a new tweet was added successfully.
-The user can use a filter to display all tweets, only those to which he is
-subscribed, or only those to which he is not subscribed.
+A user is subscribed only after a tweet has been successfully updated, ie the
+button changes to following only after the data on the card has increased Users
+can use a filter to display all tweets, only those to which he is subscribed, or
+only those to which he is not subscribed.
 
 However, the most notable feature of this app this improved pagination. Instead
 of a standard button "Load more", the application uses more functional
