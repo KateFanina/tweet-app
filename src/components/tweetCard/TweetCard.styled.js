@@ -21,22 +21,6 @@ const Content = styled.div`
   padding: 0;
 `;
 
-const AvatarData = styled.div`
-  align-items: center;
-  background: #ebd8ff;
-  border-radius: 50%;
-  box-shadow: 0 4.39163px 4.39163px rgba(0, 0, 0, 0.06),
-    inset 0 -2.19582px 4.39163px #ae7be3, inset 0 4.39163px 3.29372px #fbf8ff;
-  display: flex;
-  height: 80px;
-  justify-content: center;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 80px;
-`;
-
 const PhotoUser = styled.img`
   border-radius: 50%;
   margin-top: -46px;
@@ -109,7 +93,6 @@ const LogoType = styled(Logo)`
 
 export {
   UserCard,
-  AvatarData,
   Content,
   Poster,
   Divide,

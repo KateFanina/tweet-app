@@ -4,7 +4,6 @@ import poster from '../../resources/poster.png';
 
 import {
   UserCard,
-  AvatarData,
   PhotoUser,
   Content,
   Poster,
