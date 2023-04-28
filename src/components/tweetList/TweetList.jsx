@@ -132,49 +132,56 @@ const TweetList = () => {
                 </FormControlFilter>
               </Grid>
             </Grid>
-            {viewCards?.map(card => (
-              <TweetCard
-                card={card}
-                key={card.id}
-                toggleFollow={value => {
-                  let newCardIds = [...followings];
-                  if (value) {
-                    newCardIds = [...newCardIds, card.id];
-                  } else {
-                    newCardIds = newCardIds.filter(id => id !== card.id);
-                  }
-                  dispatch(
-                    updateCard({
-                      card: {
-                        avatar: card.avatar,
-                        followers: value
-                          ? card.followers + 1
-                          : card.followers - 1,
-                        id: card.id,
-                        tweets: card.tweets,
-                        user: card.user,
-                      },
-                      followingsData: {
-                        cardIds: newCardIds,
-                        id: SUBSCRIPTION_ID,
-                      },
-                    })
-                  );
-                }}
-              />
-            ))}
-            <TablePagination
-              component="div"
-              count={cardsCount}
-              onRowsPerPageChange={({ target }) => {
-                setPageSize(target.value);
-                setCurrentPage(0);
-              }}
-              onPageChange={(event, value) => setCurrentPage(value)}
-              page={currentPage}
-              rowsPerPage={pageSize}
-              rowsPerPageOptions={[5, 10, 20, 50, 100]}
-            />
+            {filter === FOLLOWING && followings?.length === 0 && (
+              <Alert severity="error">You have not following tweets</Alert>
+            )}
+            {(filter !== FOLLOWING || followings?.length > 0) && (
+              <>
+                {viewCards?.map(card => (
+                  <TweetCard
+                    card={card}
+                    key={card.id}
+                    toggleFollow={value => {
+                      let newCardIds = [...followings];
+                      if (value) {
+                        newCardIds = [...newCardIds, card.id];
+                      } else {
+                        newCardIds = newCardIds.filter(id => id !== card.id);
+                      }
+                      dispatch(
+                        updateCard({
+                          card: {
+                            avatar: card.avatar,
+                            followers: value
+                              ? card.followers + 1
+                              : card.followers - 1,
+                            id: card.id,
+                            tweets: card.tweets,
+                            user: card.user,
+                          },
+                          followingsData: {
+                            cardIds: newCardIds,
+                            id: SUBSCRIPTION_ID,
+                          },
+                        })
+                      );
+                    }}
+                  />
+                ))}
+                <TablePagination
+                  component="div"
+                  count={cardsCount}
+                  onRowsPerPageChange={({ target }) => {
+                    setPageSize(target.value);
+                    setCurrentPage(0);
+                  }}
+                  onPageChange={(event, value) => setCurrentPage(value)}
+                  page={currentPage}
+                  rowsPerPage={pageSize}
+                  rowsPerPageOptions={[5, 10, 20, 50, 100]}
+                />
+              </>
+            )}
           </>
         )}
     </Placeholder>
