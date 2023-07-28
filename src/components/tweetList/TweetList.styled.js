@@ -1,14 +1,26 @@
 import styled from 'styled-components';
-import { FormControl } from '@mui/material';
+import { FormControl, TablePagination } from '@mui/material';
 
-const Placeholder = styled.div`
+// const Placeholder = styled.div`
+const Placeholder = styled.ul`
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+    justify-content: center;
+  /* flex-direction: column; */
   padding: 20px;
+  gap: 30px;
 `;
 const FormControlFilter = styled(FormControl)`
   justify-content: center;
   width: 125px;
 `;
-export { Placeholder, FormControlFilter };
+
+const Pagination = styled(TablePagination)`
+    /* display: -webkit-inline-box; */
+    display: flex;
+    justify-content: center;
+    `
+
+
+export { Placeholder, FormControlFilter, Pagination };

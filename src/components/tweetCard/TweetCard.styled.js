@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { ReactComponent as Logo } from '../../resources/logo.svg';
 
-const UserCard = styled.div`
+// const UserCard = styled.div`
+const UserCard = styled.li`
   background: linear-gradient(
     114.99deg,
     #471ca9 -0.99%,
@@ -11,8 +12,10 @@ const UserCard = styled.div`
   box-shadow: -2.5777px 6.87386px 20.6216px rgba(0, 0, 0, 0.23);
   border-radius: 20px;
   height: 460px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
+  /* gap: 16px; */
   width: 380px;
+  list-style: none;
 `;
 
 const Content = styled.div`
@@ -71,6 +74,13 @@ const FollowButton = styled.button`
   border-radius: 10.3108px;
   cursor: pointer;
   border: none;
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+  &:hover{
+    /* background: rgba(255, 255, 255, 0); */
+    color: white; 
+    -webkit-text-stroke-color: rgb(71, 28, 169);
+    -webkit-text-stroke-width: 1px;
+  }
 `;
 
 const CardAction = styled.div`

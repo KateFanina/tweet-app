@@ -8,7 +8,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TablePagination,
+  // TablePagination,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TweetCard from '../tweetCard/TweetCard';
@@ -26,7 +26,7 @@ import {
 } from 'redux/subscriptions/selectors';
 import { ALL, FOLLOW, FOLLOWING } from '../../constants/filterItems';
 import { fetchCards, updateCard } from '../../redux/cards/operations';
-import { Placeholder, FormControlFilter } from './TweetList.styled';
+import { Placeholder, FormControlFilter, Pagination } from './TweetList.styled';
 
 const SUBSCRIPTION_ID = 1;
 const TWEETS_COUNT = 100;
@@ -34,7 +34,7 @@ const TWEETS_COUNT = 100;
 const TweetList = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(0);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(3);
   const [filter, setFilter] = useState(ALL);
   const [viewCards, setViewCards] = useState([]);
 
@@ -86,58 +86,57 @@ const TweetList = () => {
   }, [currentPage, pageSize, filter]);
 
   return (
-    <Placeholder>
+    <>
       {(isCardsLoading || isSubscriptionsLoading) && <Loader />}
       {(isCardsError || isSubscriptionsError) && (
         <Alert severity="error">An error occurred while fetching data.</Alert>
       )}
+      <Grid
+        container
+        justifyContent="space-around"
+        alignItems="center"
+        marginBottom="20px"
+        // width="800px"
+      >
+        <Grid item>
+          <Button
+            component={Link}
+            to="/home"
+            startIcon={<ArrowBackIcon />}
+            variant="contained"
+          >
+            Go Back
+          </Button>
+        </Grid>
+        <Grid item>
+          <FormControlFilter size="small">
+            <InputLabel id="select-label">Filter</InputLabel>
+            <Select
+              label="Filter"
+              labelId="select-label"
+              onChange={({ target }) => {
+                setFilter(target.value);
+                setCurrentPage(0);
+              }}
+              value={filter}
+            >
+              <MenuItem value={ALL}>All</MenuItem>
+              <MenuItem value={FOLLOW}>Follow</MenuItem>
+              <MenuItem value={FOLLOWING}>Followings</MenuItem>
+            </Select>
+          </FormControlFilter>
+        </Grid>
+      </Grid>
       {!isCardsLoading &&
         !isSubscriptionsLoading &&
         !isCardsError &&
-        !isSubscriptionsError && (
-          <>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              marginBottom="20px"
-              width="680px"
-            >
-              <Grid item>
-                <Button
-                  component={Link}
-                  to="/home"
-                  startIcon={<ArrowBackIcon />}
-                  variant="contained"
-                >
-                  Go Back
-                </Button>
-              </Grid>
-              <Grid item>
-                <FormControlFilter>
-                  <InputLabel id="select-label">Filter</InputLabel>
-                  <Select
-                    label="Filter"
-                    labelId="select-label"
-                    onChange={({ target }) => {
-                      setFilter(target.value);
-                      setCurrentPage(0);
-                    }}
-                    value={filter}
-                  >
-                    <MenuItem value={ALL}>All</MenuItem>
-                    <MenuItem value={FOLLOW}>Follow</MenuItem>
-                    <MenuItem value={FOLLOWING}>Followings</MenuItem>
-                  </Select>
-                </FormControlFilter>
-              </Grid>
-            </Grid>
+        !isSubscriptionsError && (       
+          <Placeholder>     
             {filter === FOLLOWING && followings?.length === 0 && (
               <Alert severity="error">You have not following tweets</Alert>
             )}
             {(filter !== FOLLOWING || followings?.length > 0) && (
-              <>
-                {viewCards?.map(card => (
+                viewCards?.map(card => (
                   <TweetCard
                     card={card}
                     key={card.id}
@@ -167,24 +166,23 @@ const TweetList = () => {
                       );
                     }}
                   />
-                ))}
-                <TablePagination
-                  component="div"
-                  count={cardsCount}
-                  onRowsPerPageChange={({ target }) => {
-                    setPageSize(target.value);
-                    setCurrentPage(0);
-                  }}
-                  onPageChange={(event, value) => setCurrentPage(value)}
-                  page={currentPage}
-                  rowsPerPage={pageSize}
-                  rowsPerPageOptions={[5, 10, 20, 50, 100]}
-                />
-              </>
+                ))
             )}
-          </>
+          </Placeholder>
         )}
-    </Placeholder>
+        <Pagination
+          component="div"
+          count={cardsCount}
+          onRowsPerPageChange={({ target }) => {
+            setPageSize(target.value);
+            setCurrentPage(0);
+          }}
+          onPageChange={(event, value) => setCurrentPage(value)}
+          page={currentPage}
+          rowsPerPage={pageSize}
+          rowsPerPageOptions={[3, 6, 9, 12, 24]}
+        />
+    </>
   );
 };
 
