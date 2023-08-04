@@ -116,7 +116,6 @@ const TweetList = () => {
         justifyContent="space-around"
         alignItems="center"
         marginBottom="20px"
-        // width="800px"
       >
         <Grid item>
           <Button
