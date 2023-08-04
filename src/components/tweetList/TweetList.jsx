@@ -8,8 +8,13 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  // TablePagination,
 } from '@mui/material';
+import {
+  alpha,
+  createTheme,
+  getContrastRatio,
+  ThemeProvider,
+} from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TweetCard from '../tweetCard/TweetCard';
 import Loader from 'components/loader';
@@ -27,6 +32,21 @@ import {
 import { ALL, FOLLOW, FOLLOWING } from '../../constants/filterItems';
 import { fetchCards, updateCard } from '../../redux/cards/operations';
 import { Placeholder, FormControlFilter, Pagination } from './TweetList.styled';
+
+const violetBase = 'rgb(71, 28, 169)';
+const violetMain = alpha(violetBase, 2);
+
+const theme = createTheme({
+  palette: {
+    violet: {
+      main: alpha(violetBase, 0.9),
+      light: alpha(violetBase, 0.7),
+      dark: violetMain,
+      contrastText: getContrastRatio(violetMain, '#fff') > 4.5 ? '#fff' : '#111',
+    },
+  },
+});
+
 
 const SUBSCRIPTION_ID = 1;
 const TWEETS_COUNT = 100;
@@ -86,7 +106,7 @@ const TweetList = () => {
   }, [currentPage, pageSize, filter]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {(isCardsLoading || isSubscriptionsLoading) && <Loader />}
       {(isCardsError || isSubscriptionsError) && (
         <Alert severity="error">An error occurred while fetching data.</Alert>
@@ -100,6 +120,7 @@ const TweetList = () => {
       >
         <Grid item>
           <Button
+            color="violet"
             component={Link}
             to="/home"
             startIcon={<ArrowBackIcon />}
@@ -182,7 +203,7 @@ const TweetList = () => {
           rowsPerPage={pageSize}
           rowsPerPageOptions={[3, 6, 9, 12, 24]}
         />
-    </>
+    </ThemeProvider>
   );
 };
 
